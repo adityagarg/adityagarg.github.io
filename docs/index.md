@@ -3,9 +3,9 @@
 # Edit theme's home layout instead if you wanna make some changes
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: default
-title: Blog
+title: 
 ---
-{% for post in site.posts %}
+<!-- {% for post in site.posts %}
   <div id="post-short">
     <a href="{{site.url}}{{site.baseurl}}{{post.url}}">
       <h3>{{post.title}}</h3>
@@ -19,4 +19,4 @@ title: Blog
       {% endif %}
     </p>
   </div>
-{% endfor %}
+{% endfor %} -->

@@ -1,17 +1,18 @@
-body	{
+body {
 	margin-top: 0px;
-	padding:0;
+	padding: 0;
 	font-family: 'Cutive Mono', serif;
-	font-size:100%;
-	line-height:150%;
+	font-size: 100%;
+	line-height: 150%;
 }
 
-a:link, a:visited	{
+a:link,
+a:visited {
 	text-decoration: none;
-	color:#000
+	color: #000
 }
 
-a:hover	{
+a:hover {
 	text-decoration: underline;
 }
 
@@ -22,83 +23,88 @@ a:hover	{
 }
 
 #nav {
-	text-align:center;
-	margin:auto;
-	margin-top:0px;
-	padding-top:0px;
-	margin-bottom:5px;
-	padding-bottom:5px;
+	text-align: center;
+	margin: auto;
+	margin-top: 0px;
+	padding-top: 0px;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
 	border-bottom: 1px solid #000;
 }
 
 #content-left {
-	text-align:left;
-	margin:auto;
-	padding-top:5px;
-	margin-bottom:20px;
-	padding-bottom:20px;
+	text-align: left;
+	margin: auto;
+	padding-top: 5px;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 #content {
-	text-align:center;
-	margin:auto;
-	margin-top:20px;
-	padding-top:20px;
-	margin-bottom:20px;
-	padding-bottom:20px;
+	text-align: center;
+	margin: auto;
+	margin-top: 20px;
+	padding-top: 20px;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 #footer {
-	text-align:center;
-	margin:auto;
-	font-size:0.8em;
-	margin-bottom:10px;
-	padding-bottom:10px;
+	text-align: center;
+	margin: auto;
+	font-size: 0.8em;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
 	border-top: 1px solid #000;
 }
 
-#logo	{
-	text-align:center;
-	margin: 20px auto 20px auto;
+#logo {
+	text-align: center;
+	margin: 20% auto 20px auto;
 }
 
 #logo img {
 	max-width: 50%;
 }
 
-#content-left a:link, #content-left a:visited	{
+#content-left a:link,
+#content-left a:visited {
 	text-decoration: underline;
-	color:#000
+	color: #000
 }
 
-#content-left a:hover	{
+#content-left a:hover {
 	text-decoration: none;
 }
 
-#post-short a:link, #post-short a:visited	{
+#post-short a:link,
+#post-short a:visited {
 	text-decoration: none;
-	color:#000
+	color: #000
 }
 
-#post-short a:hover	{
+#post-short a:hover {
 	text-decoration: underline;
 }
 
-#post-short h3, #post h2	{
+#post-short h3,
+#post h2 {
 	margin-bottom: 0px;
 }
 
-#post-short i	{
-	font-size:0.8em;
+#post-short i {
+	font-size: 0.8em;
 	color: grey;
 }
 
-#post i	{
-	font-size:0.9em;
+#post i {
+	font-size: 0.9em;
 	color: grey;
 }
 
-#categories a, #categories a:link, #categories a:visited {
+#categories a,
+#categories a:link,
+#categories a:visited {
 	background-color: grey;
 	text-decoration: none;
 	padding: 0.1em 0.5em 0.1em 0.5em;
@@ -116,7 +122,10 @@ a:hover	{
 		padding: 10px;
 	}
 
-	#logo, #nav, #content-left,	#footer {
+	#logo,
+	#nav,
+	#content-left,
+	#footer {
 		display: block;
 		width: 100%;
 	}
@@ -147,7 +156,10 @@ a:hover	{
 		padding: 10px;
 	}
 
-	#logo, #nav, #content-left,	#footer {
+	#logo,
+	#nav,
+	#content-left,
+	#footer {
 		display: block;
 		width: 100%;
 	}
