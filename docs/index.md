@@ -5,6 +5,10 @@
 layout: default
 title: 
 ---
+<div id="venn">
+  <img src="{{site.url}}{{site.baseurl}}/assets/images/venn_life.png">
+</div>
+
 <!-- {% for post in site.posts %}
   <div id="post-short">
     <a href="{{site.url}}{{site.baseurl}}{{post.url}}">

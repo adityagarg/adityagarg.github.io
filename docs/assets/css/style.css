@@ -6,6 +6,14 @@ body {
 	line-height: 150%;
 }
 
+li {
+	padding-left: 2px;
+}
+
+li::marker {
+	content: '-'
+}
+
 a:link,
 a:visited {
 	text-decoration: none;
@@ -28,7 +36,7 @@ a:hover {
 	margin-top: 0px;
 	padding-top: 0px;
 	margin-bottom: 5px;
-	padding-bottom: 5px;
+	padding-bottom: 10px;
 	border-bottom: 1px solid #000;
 }
 
@@ -115,6 +123,17 @@ a:hover {
 	text-decoration: underline;
 }
 
+#venn {
+	text-align: center;
+}
+
+#venn>img {
+	max-width: 60%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+}
+
 @media screen and (max-width: 850px) {
 	#main {
 		width: auto;
@@ -135,16 +154,16 @@ a:hover {
 	}
 
 	#nav {
-		font-size: 2em;
+		font-size: 1em;
 		padding-bottom: 0.5em;
 	}
 
 	h2 {
-		font-size: 3em;
+		font-size: 1.5em;
 	}
 
 	h3 {
-		font-size: 2em;
+		font-size: 1em;
 	}
 
 }
