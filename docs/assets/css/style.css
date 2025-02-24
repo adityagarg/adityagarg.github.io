@@ -134,6 +134,15 @@ a:hover {
 	height: auto;
 }
 
+.art-preview {
+    width: 30%; 
+    max-width: 100%; 
+    height: auto; 
+    border: 1px solid #817d7d; /* Dark gray border */
+    border-radius: 2px; /* Optional: Rounded corners */
+}
+
+
 @media screen and (max-width: 850px) {
 	#main {
 		width: auto;
