@@ -1,0 +1,72 @@
+/* Apply a modern sans-serif font for a clean look */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+  }
+  
+  /* Style for slider labels */
+  .slider-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 2px;
+    /* Optionally add some opacity for extra subtlety */
+    opacity: 0.8;
+  }
+  
+  /* Custom styling for the sliders */
+  .mySlider {
+    -webkit-appearance: none;
+    width: 120px;
+    height: 4px;
+    border-radius: 2px;
+    background: #e0e0e0;
+    outline: none;
+    margin: 0;
+  }
+  
+  /* Webkit browsers (Chrome, Safari) slider track */
+  .mySlider::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+  }
+  
+  /* Webkit browsers slider thumb */
+  .mySlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #888;
+    cursor: pointer;
+    margin-top: -5px; /* Centers the thumb vertically on the track */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+  }
+  
+  .mySlider::-webkit-slider-thumb:hover {
+    background: #666;
+  }
+  
+  /* Firefox slider thumb */
+  .mySlider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #888;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+  }
+  
+  .mySlider::-moz-range-thumb:hover {
+    background: #666;
+  }
+  
+  /* Firefox slider track */
+  .mySlider::-moz-range-track {
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+  }
+  
