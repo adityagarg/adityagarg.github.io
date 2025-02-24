@@ -153,11 +153,12 @@ function draw() {
 }
 
 function mousePressed() {
+
   if (mouseButton === RIGHT) {
     let ts = Date.now();
     // Uncomment the following line to save the canvas image:
     // saveCanvas('tree_' + ts, 'png');
-  } else if (mouseButton === LEFT) {
+  } else {
     // Instead of drawing the tree immediately on the main canvas,
     // create an offscreen graphics buffer and draw the tree on it.
     branchBuffer = createGraphics(windowWidth, windowHeight);
@@ -170,6 +171,11 @@ function mousePressed() {
     fadingBranch = true;
     fadingLeaves = false;
   }
+}
+
+function touchStarted() {
+  mousePressed();
+  return false; // Prevents default behavior
 }
 
 function windowResized() {
