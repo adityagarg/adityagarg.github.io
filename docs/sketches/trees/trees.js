@@ -121,6 +121,8 @@ function setup() {
   lengthSlider.style('width', '100px');
   lengthSlider.class('mySlider');
   lengthSlider.elt.addEventListener('mousedown', (e) => e.stopPropagation());
+  lengthSlider.elt.addEventListener('touchstart', (e) => e.stopPropagation());
+  lengthSlider.elt.addEventListener('touchmove', (e) => e.stopPropagation());
 }
 
 function draw() {
