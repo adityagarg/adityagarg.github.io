@@ -4,7 +4,7 @@ title: tinker time
 permalink: /tinkering/
 ---
 
-- **fact check me** \
+- [**fact check me**](https://github.com/adityagarg/factcheckme) \
     a whatsapp bot to fact check your texts before you embarass your family
 
 - **dots on maps** \
