@@ -142,7 +142,7 @@ function draw() {
     tint(255, fadeAlphaLeaves);
     image(leavesBuffer, 0, 0);
     noTint();
-    fadeAlphaLeaves += 0.25; 
+    fadeAlphaLeaves += 0.75; 
     if (fadeAlphaLeaves >= 255) {
       image(leavesBuffer, 0, 0);
       fadingLeaves = false;
