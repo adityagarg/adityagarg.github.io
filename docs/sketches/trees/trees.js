@@ -2,10 +2,10 @@
 
 let defaultTrunkLength = p5.prototype.map(
   p5.prototype.windowHeight,
-  761,
-  857,
+  667,
+  1088,
   38,
-  60
+  78
 );
 const DEFAULT_TRUNK_LENGTH = p5.prototype.constrain(
   defaultTrunkLength,
