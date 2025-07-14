@@ -22,6 +22,12 @@ function isHover(x, y) {
   );
 }
 
+function rain_drop(x, y, length, width, opacity_val) {
+  fill(255, opacity(opacity_val));
+  noStroke();
+  triangle(x, y, x - width, y + length, x + width, y + length);
+}
+
 function draw() {
   background(0, 0, 0);
 
@@ -34,9 +40,6 @@ function draw() {
 
   let t = accumulatedTime;
 
-  // let t = millis() * 0.002 * timeSpeed;
-  strokeWeight(1.5);
-
   for (let x = 0; x < width; x += 2) {
     let offset_noise = noise(x);
     let speed_noise = noise(x + 1000); // shifted input space
@@ -45,10 +48,10 @@ function draw() {
 
     let y = (pow(t, 1) * speedMultiplier + offset) % height;
     opacity_val = map(offset_noise, 0, 1, 0.1, 0.7);
-    raindrop_length = map(speed_noise, 0, 1, 8, 15);
+    raindrop_length = map(speed_noise, 0, 1, 8, 12);
 
-    stroke(255, opacity(opacity_val));
-    line(x, y, x, y + raindrop_length);
+    let w = map(speed_noise, 0, 1, 1.2, 1.5);
+    rain_drop(x, y, raindrop_length, w, opacity_val);
   }
 }
 
