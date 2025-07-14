@@ -1,15 +1,16 @@
-CELL_WIDTH = 30;
-RAIN_LENGTH = 15;
-RAIN_SPEED = 20;
-
-NOISE_SCALE = 0.9;
-
+// Constants
 let y;
+let timeSpeed = 1;
+let targetTimeSpeed = 1;
+let lerpFactor = 0.1; // Easing factor for smooth transition of time speed
+
+let accumulatedTime = 0;
+let lastFrameTime = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(255);
-  y = random(height);
+  lastFrameTime = millis();
 }
 
 function isHover(x, y) {
@@ -24,8 +25,16 @@ function isHover(x, y) {
 function draw() {
   background(0, 0, 0);
 
-  let t = millis() * 0.002;
-  let dropCount = 100;
+  timeSpeed = lerp(timeSpeed, targetTimeSpeed, lerpFactor);
+
+  let now = millis();
+  let delta = (now - lastFrameTime) * 0.002; // base speed
+  accumulatedTime += delta * timeSpeed;
+  lastFrameTime = now;
+
+  let t = accumulatedTime;
+
+  // let t = millis() * 0.002 * timeSpeed;
   strokeWeight(1.5);
 
   for (let x = 0; x < width; x += 2) {
@@ -47,11 +56,26 @@ function mousePressed() {
   if (mouseButton === RIGHT) {
     let ts = Date.now();
   } else {
+    lerpFactor = 0.1;
+    targetTimeSpeed = 0.1;
+  }
+}
+
+function mouseReleased() {
+  if (mouseButton === RIGHT) {
+  } else {
+    lerpFactor = 0.2;
+    targetTimeSpeed = 1;
   }
 }
 
 function touchStarted() {
   mousePressed();
+  return false; // Prevents default behavior
+}
+
+function touchEnded() {
+  mouseReleased();
   return false; // Prevents default behavior
 }
 
