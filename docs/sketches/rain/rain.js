@@ -12,11 +12,16 @@ let umbrellaActive = false;
 let lastTapTime = 0;
 let tapThreshold = 300;
 
+function updateUmbrellaSize() {
+  domeRadius = min(width, height) * 0.08;
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(255);
   lastFrameTime = millis();
   noCursor();
+  updateUmbrellaSize();
 }
 
 function isHover(x, y) {
@@ -84,6 +89,7 @@ function draw() {
     randomFloor = map(noise(x), 0, 1, 0, groundHeight);
 
     let drop_tip_y = y + raindrop_length;
+    let opacity_multiplier = 1;
     if (umbrellaActive) {
       let domeRX = domeRadius * 1.25;
       let domeRY = domeRadius * 0.85;
@@ -92,13 +98,23 @@ function draw() {
         if (drop_tip_y <= mouseY) {
           umbrella_splash(x, surface_y, speed_noise);
         }
-        continue;
+        let vertical_fade = constrain(
+          map(drop_tip_y, surface_y, height, 0, 0.7),
+          0,
+          1,
+        );
+        let horizontal_fade = constrain(
+          map(abs(x - mouseX), 0, domeRX, 1, 1.4),
+          1,
+          1.5,
+        );
+        opacity_multiplier = vertical_fade * horizontal_fade;
       }
     }
 
     if (drop_tip_y >= height - (groundHeight - randomFloor)) {
       noFill();
-      stroke(255, 50);
+      stroke(255, opacity(0.2 * opacity_multiplier));
       drop_radius = map(speed_noise, 0, 1, 5, 15);
       drop_height = map(speed_noise, 0, 1, 1, 3);
       ellipse(
@@ -109,13 +125,14 @@ function draw() {
       );
       continue;
     }
-    rain_drop(x, y, raindrop_length, w, opacity_val);
+    rain_drop(x, y, raindrop_length, w, opacity_val * opacity_multiplier);
   }
 
   if (umbrellaActive) {
     // Umbrella outline
     noFill();
-    stroke(255, 180);
+    stroke(255, opacity(0.9));
+    strokeWeight(0.7);
 
     let domeRX = domeRadius * 1.25;
     let domeRY = domeRadius * 0.85;
@@ -185,4 +202,5 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   background(255);
   textured_background();
+  updateUmbrellaSize();
 }
