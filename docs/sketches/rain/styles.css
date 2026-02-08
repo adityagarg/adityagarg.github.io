@@ -1,11 +1,18 @@
 /* Apply a modern sans-serif font for a clean look */
+html,
+body {
+    height: 100%;
+  }
+
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #333;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background: #000;
   }
+
   
   /* Style for slider labels */
   .slider-label {
