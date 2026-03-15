@@ -1,9 +1,7 @@
 ---
 layout: default
-title: gems on the internet
+title: little gems
 permalink: /gems/
 ---
-
-- [sharkle](https://sharkle.com/index.html) : portal to the coolest corners of the internet
 
 - [the tail end by time urban](https://waitbutwhy.com/2015/12/the-tail-end.html) : quick, warm, hit-you-in-the-gut perspective on life
