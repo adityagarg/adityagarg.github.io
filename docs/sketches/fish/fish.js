@@ -58,13 +58,16 @@ const MOTE_ALPHA_MIN = 30;
 const MOTE_ALPHA_MAX = 80;
 const MOTE_DRIFT = 0.5; // pixels/frame drift speed
 
-// --- State ---
+// --- Touch ---
+const DOUBLE_TAP_MS = 300;
 let school = [];
 let food = [];
 let predatorMode = false;
 let sharkHeading = 0; // persists between frames to avoid flicker when mouse is still
 let pendingBirths = []; // positions queued during update(); flushed to school[] after loop
 let motes = [];
+let _lastTapTime = 0;
+let _tapTimer = null;
 
 class Fish {
   constructor(x, y) {
@@ -446,6 +449,28 @@ function doubleClicked() {
   predatorMode = !predatorMode;
   if (predatorMode) noCursor();
   else cursor(ARROW);
+}
+
+// Single tap = food drop; double tap = predator toggle.
+// Uses a timer to distinguish: second tap within DOUBLE_TAP_MS cancels the pending food drop.
+function touchStarted() {
+  const now = Date.now();
+  if (now - _lastTapTime < DOUBLE_TAP_MS) {
+    clearTimeout(_tapTimer);
+    _tapTimer = null;
+    predatorMode = !predatorMode;
+    if (predatorMode) noCursor();
+    else cursor(ARROW);
+  } else {
+    _tapTimer = setTimeout(() => {
+      if (food.length < MAX_FOOD_PELLETS) {
+        food.push(createVector(mouseX, mouseY));
+      }
+      _tapTimer = null;
+    }, DOUBLE_TAP_MS);
+  }
+  _lastTapTime = now;
+  return false; // prevent scroll/zoom
 }
 
 // Top-down whale shark
