@@ -26,7 +26,7 @@ const W_FLOW = 0.1; // weight of flow force
 // --- Predator ---
 const PREDATOR_RADIUS = 200; // flee radius around mouse
 const PREDATOR_EAT_RADIUS = 30; // distance at which predator consumes a fish
-const W_PREDATOR = 15.0; // flee force weight (1/d² — spikes near center)
+const W_PREDATOR = 20.0; // flee force weight (1/d² — spikes near center)
 const FLEE_SPEED_BOOST = 1.5; // speed multiplier at peak flee (1 = no boost, 2 = double)
 const FLEE_DECAY = 0.93; // boost decay per frame when outside radius (~1.5s to fade)
 
@@ -59,7 +59,7 @@ const MOTE_ALPHA_MAX = 80;
 const MOTE_DRIFT = 0.5; // pixels/frame drift speed
 
 // --- Touch ---
-const DOUBLE_TAP_MS = 300;
+const DOUBLE_TAP_MS = 200;
 let school = [];
 let food = [];
 let predatorMode = false;
@@ -67,7 +67,8 @@ let sharkHeading = 0; // persists between frames to avoid flicker when mouse is 
 let pendingBirths = []; // positions queued during update(); flushed to school[] after loop
 let motes = [];
 let _lastTapTime = 0;
-let _tapTimer = null;
+let _lastClickTime = 0;
+let _lastTouchTime = 0;
 
 class Fish {
   constructor(x, y) {
@@ -440,36 +441,36 @@ function drawFoodPellet(pellet) {
 }
 
 function mouseClicked() {
+  if (Date.now() - _lastTouchTime < 500) return; // synthetic mouse event after touch
+  const now = Date.now();
+  const rapid = now - _lastClickTime < DOUBLE_TAP_MS;
+  _lastClickTime = now;
+  if (rapid) return; // second click of a double-click — let doubleClicked() handle it
   if (food.length < MAX_FOOD_PELLETS) {
     food.push(createVector(mouseX, mouseY));
   }
 }
 
 function doubleClicked() {
+  if (Date.now() - _lastTouchTime < 500) return; // touchStarted already handled it
   predatorMode = !predatorMode;
   if (predatorMode) noCursor();
   else cursor(ARROW);
 }
 
-// Single tap = food drop; double tap = predator toggle.
-// Uses a timer to distinguish: second tap within DOUBLE_TAP_MS cancels the pending food drop.
+// Single tap = food drop; double tap = food drop + predator toggle.
 function touchStarted() {
   const now = Date.now();
   if (now - _lastTapTime < DOUBLE_TAP_MS) {
-    clearTimeout(_tapTimer);
-    _tapTimer = null;
     predatorMode = !predatorMode;
     if (predatorMode) noCursor();
     else cursor(ARROW);
-  } else {
-    _tapTimer = setTimeout(() => {
-      if (food.length < MAX_FOOD_PELLETS) {
-        food.push(createVector(mouseX, mouseY));
-      }
-      _tapTimer = null;
-    }, DOUBLE_TAP_MS);
   }
   _lastTapTime = now;
+  _lastTouchTime = now;
+  if (food.length < MAX_FOOD_PELLETS) {
+    food.push(createVector(mouseX, mouseY));
+  }
   return false; // prevent scroll/zoom
 }
 
