@@ -50,6 +50,13 @@ const TAIL_ATTACH = 0.4; // fraction of body length/width behind center where ta
 const BODY_COLOR = [230, 235, 245];
 const BACKGROUND_COLOR = [60, 110, 160];
 
+// --- Shimmer (view-angle glint) ---
+const SHIMMER_LIGHT_ANGLE = -Math.PI / 3; // virtual light direction
+const SHIMMER_COLOR = [24, 53, 82]; // complement of BODY_COLOR — warm near-black
+
+const SHIMMER_GLINT_STRENGTH = 0.8; // 0–1: how far to lerp toward SHIMMER_COLOR at peak
+const SHIMMER_GLINT_SHARPNESS = 5; // higher = tighter flash window
+
 // --- Motes (ambient drifting particles) ---
 const NUM_MOTES = 200;
 const MOTE_SIZE_MIN = 2;
@@ -80,6 +87,7 @@ class Fish {
     this.velocity = p5.Vector.fromAngle(angle).mult(this.cruiseSpeed);
     this.fleeBoost = 0; // decaying speed multiplier; set by steer(), decayed by update()
     this.isFleeing = false; // true if within PREDATOR_RADIUS
+    this.turnRate = 0; // 0–1 fraction of MAX_TURN_RATE, updated each frame
   }
 
   // Compute all steering forces (cohesion + separation + alignment + wander).
@@ -220,6 +228,9 @@ class Fish {
     let delta = this.velocity.heading() - oldHeading;
     if (delta > PI) delta -= TWO_PI;
     if (delta < -PI) delta += TWO_PI;
+    // EMA smoothing: shimmer decays over a few frames rather than jittering per-frame
+    const rawRate = Math.min(Math.abs(delta), MAX_TURN_RATE) / MAX_TURN_RATE;
+    this.turnRate = 0.85 * this.turnRate + 0.15 * rawRate;
     // Flee boost: spike to 1 when fleeing, decay multiplicatively otherwise.
     // Applied to speed after turn-rate cap so direction change is still capped
     // but fish can move faster than cruiseSpeed during panic.
@@ -265,10 +276,21 @@ class Fish {
 
   draw() {
     push();
+    const heading = this.velocity.heading();
     translate(this.position.x, this.position.y);
-    rotate(this.velocity.heading());
+    rotate(heading);
     noStroke();
-    fill(...BODY_COLOR);
+    // Peaks when the fish is broadside to the virtual light — scales catch it.
+    const broadside = Math.abs(Math.sin(heading - SHIMMER_LIGHT_ANGLE));
+    const t =
+      Math.pow(broadside, SHIMMER_GLINT_SHARPNESS) *
+      SHIMMER_GLINT_STRENGTH *
+      this.turnRate *
+      this.turnRate *
+      this.turnRate;
+    const [r, g, b] = BODY_COLOR;
+    const [sr, sg, sb] = SHIMMER_COLOR;
+    fill(r + (sr - r) * t, g + (sg - g) * t, b + (sb - b) * t);
 
     // Body: ellipse centered slightly forward so tail has room behind
     ellipse(FISH_LENGTH * 0.1, 0, FISH_LENGTH, FISH_WIDTH);
